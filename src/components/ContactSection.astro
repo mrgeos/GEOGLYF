@@ -1,0 +1,17 @@
+---
+import ContactForm from './ContactForm.astro';
+import { site } from '../data/site';
+interface Props { title?: string; lead?: string }
+const { title = 'Обсудим <em>задачу?</em>', lead = 'Напишите пару слов о проекте. Отвечу в течение рабочего дня, предложу формат и вилку стоимости.' } = Astro.props;
+---
+<section class="contact" id="contact">
+  <div class="contact__text">
+    <h2 class="h2" set:html={title}></h2>
+    <p class="lead">{lead}</p>
+    <ul class="contact__links">
+      <li><a href={`https://t.me/${site.telegram}`} target="_blank" rel="noopener">Telegram @{site.telegram}</a></li>
+      <li><a href={site.phoneHref}>{site.phone}</a></li>
+    </ul>
+  </div>
+  <ContactForm />
+</section>

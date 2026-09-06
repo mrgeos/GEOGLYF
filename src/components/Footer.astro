@@ -1,0 +1,21 @@
+---
+import { site } from '../data/site';
+import { url } from '../lib/url';
+const year = new Date().getFullYear();
+---
+<footer class="footer">
+  <div class="footer__brand">
+    <span class="logo__word">GEOGLYF</span>
+    <p>Digital design &amp; branding by Georgy Schustow</p>
+  </div>
+  <div class="footer__col">
+    <a href={`https://t.me/${site.telegram}`} target="_blank" rel="noopener">Telegram</a>
+    <a href={site.phoneHref}>{site.phone}</a>
+    <a href={site.archive} target="_blank" rel="noopener">Архив работ</a>
+  </div>
+  <div class="footer__col">
+    {site.nav.map((l) => <a href={url(l.href)}>{l.label}</a>)}
+    <a href={url('/contacts/')}>Контакты</a>
+  </div>
+  <p class="footer__copy">© 2006-{year} {site.person}. Все проекты выполнены с использованием лицензионных материалов.</p>
+</footer>

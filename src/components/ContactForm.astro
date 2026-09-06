@@ -1,0 +1,30 @@
+---
+import { site } from '../data/site';
+const needs = ['Поддержка', 'Брендинг', 'Сайт', 'UI/UX', 'Key visual', 'Презентация'];
+---
+<form class="form" data-tg-form action={`https://t.me/${site.telegram}`} method="get" target="_blank" novalidate>
+  <div class="field">
+    <label for="f-name">Как вас зовут</label>
+    <input id="f-name" name="name" type="text" autocomplete="name" required>
+    <span class="field__err">Напишите имя, чтобы я знал, как обращаться</span>
+  </div>
+  <div class="field">
+    <label for="f-company">Компания или проект</label>
+    <input id="f-company" name="company" type="text" autocomplete="organization">
+  </div>
+  <fieldset class="field">
+    <legend>Что нужно</legend>
+    <div class="chips">
+      {needs.map((n) => (
+        <label><input type="checkbox" name="need" value={n}><span>{n}</span></label>
+      ))}
+    </div>
+  </fieldset>
+  <div class="field">
+    <label for="f-msg">Пара слов о задаче</label>
+    <textarea id="f-msg" name="message" rows="4" required></textarea>
+    <span class="field__err">Хотя бы одно предложение: что, для кого и когда</span>
+  </div>
+  <button class="btn btn--accent" type="submit">Отправить в Telegram</button>
+  <p class="form__hint">Кнопка откроет Telegram с готовым сообщением. Ничего не отправляется без вашего подтверждения.</p>
+</form>

@@ -1,0 +1,63 @@
+---
+import Base from '../../layouts/Base.astro';
+import ContactSection from '../../components/ContactSection.astro';
+import CaseCard from '../../components/CaseCard.astro';
+import { cases } from '../../data/cases';
+import { url } from '../../lib/url';
+
+export function getStaticPaths() {
+  return cases.map((c, i) => ({ params: { slug: c.slug }, props: { item: c, next: cases[(i + 1) % cases.length] } }));
+}
+const { item: c, next } = Astro.props;
+---
+<Base title={`${c.name}. Проект GEOGLYF`} description={c.summary} ogImage={c.cover.replace(/^.*\/\/[^/]+\//, '')}>
+  <section class="case-hero">
+    <p class="crumbs"><a href={url('/work/')}>Проекты</a><span>{c.name}</span></p>
+    <h1 class="h1">{c.name}</h1>
+    <p class="lead">{c.summary}</p>
+    <dl class="case-meta">
+      <div><dt>Клиент</dt><dd>{c.client}</dd></div>
+      <div><dt>Отрасль</dt><dd>{c.industry}</dd></div>
+      <div><dt>Годы</dt><dd>{c.years}</dd></div>
+      <div><dt>Услуги</dt><dd>{c.services.join(', ')}</dd></div>
+    </dl>
+  </section>
+
+  <section class="case-cover">
+    <!-- TODO: заменить заглушку на реальную обложку 1600x900 -->
+    <img src={c.cover} alt={`Обложка проекта ${c.name}`} width="1600" height="900">
+  </section>
+
+  <section class="case-body">
+    <div class="case-body__col">
+      <h2 class="h3">Задача</h2>
+      <p>{c.task}</p>
+    </div>
+    <div class="case-body__col">
+      <h2 class="h3">Решение</h2>
+      <p>{c.solution}</p>
+    </div>
+  </section>
+
+  <section class="case-gallery">
+    {c.gallery.map((g, i) => (
+      <img src={g} alt={`${c.name}, изображение ${i + 1}`} width="1600" height="1000" loading="lazy">
+    ))}
+  </section>
+
+  <section class="case-results">
+    <div class="tile tile--accent">
+      <h2 class="h3">Результат</h2>
+      <ul class="list">{c.results.map((r) => <li>{r}</li>)}</ul>
+    </div>
+  </section>
+
+  <section class="case-next">
+    <h2 class="h4">Следующий проект</h2>
+    <div class="work__grid work__grid--one">
+      <CaseCard item={{ ...next, coverRatio: 'wide' }} />
+    </div>
+  </section>
+
+  <ContactSection title="Нужен похожий <em>результат?</em>" />
+</Base>

@@ -1,0 +1,54 @@
+---
+import Base from '../../layouts/Base.astro';
+import PageHero from '../../components/PageHero.astro';
+import Cta from '../../components/Cta.astro';
+import { services } from '../../data/services';
+import { url } from '../../lib/url';
+---
+<Base
+  title="Проектные услуги: брендинг, сайты, UI/UX, key visual, презентации. GEOGLYF"
+  description="Проекты под ключ с фиксированной сметой и гарантией 12 месяцев: брендинг и айдентика, сайты и лендинги, UI/UX дизайн, key visual, презентации и КП.">
+
+  <PageHero
+    title="Проектные услуги <em>под ключ</em>"
+    lead="Когда нужен результат с чётким объёмом, сроком и стоимостью. Фиксированная смета по договору, оплата по этапам, гарантия 12 месяцев."
+    shape="shape-swirl.png" />
+
+  <section class="svc-grid">
+    {services.map((s, i) => (
+      <a class:list={['svc-card', { 'svc-card--wide': i === 0 }]} href={url(`/services/${s.slug}/`)}>
+        <img src={url('/assets/' + s.shape)} alt="" width="400" height="400" loading="lazy" class="svc-card__shape">
+        <div class="svc-card__body">
+          <h2 class="h3">{s.name}</h2>
+          <p>{s.short}</p>
+          <p class="svc-card__meta"><span>{s.duration}</span><span>{s.price}</span></p>
+        </div>
+      </a>
+    ))}
+  </section>
+
+  <section class="guarantee">
+    <h2 class="h2">Оплата <em>и гарантии</em></h2>
+    <div class="guarantee__grid">
+      <div class="tile tile--dark">
+        <h3 class="h4">Оплата по этапам</h3>
+        <div class="pay__bar pay__bar--stack">
+          <span style="--w:30">30%<small>старт</small></span>
+          <span style="--w:30">30%<small>концепция</small></span>
+          <span style="--w:20">20%<small>макеты</small></span>
+          <span style="--w:20">20%<small>запуск</small></span>
+        </div>
+      </div>
+      <ul class="check tile">
+        <li>На всех этапах вы защищены договором</li>
+        <li>Каждый этап закрывается актом</li>
+        <li>Остановиться можно на любом этапе</li>
+        <li>Гарантия на сайт 12 месяцев</li>
+        <li>Только лицензионные материалы</li>
+        <li>Скидка 15% при 100% предоплате</li>
+      </ul>
+    </div>
+  </section>
+
+  <Cta title="Не знаете, какой формат <em>нужен?</em>" text="Расскажите о задаче, и я предложу проект, поддержку или их сочетание с вилкой стоимости." />
+</Base>

@@ -1,0 +1,17 @@
+---
+interface Props { title: string; lead?: string; shape?: string; small?: boolean }
+const { title, lead, shape, small = false } = Astro.props;
+import { url } from '../lib/url';
+---
+<section class:list={['page-hero', { 'page-hero--small': small }]}>
+  <div class="page-hero__text">
+    <h1 class="h1" set:html={title}></h1>
+    {lead && <p class="lead">{lead}</p>}
+    <slot />
+  </div>
+  {shape && (
+    <div class="page-hero__visual" aria-hidden="true">
+      <img src={url('/assets/' + shape)} alt="" width="800" height="800" fetchpriority="high" class="float">
+    </div>
+  )}
+</section>

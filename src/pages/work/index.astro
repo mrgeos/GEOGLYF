@@ -1,0 +1,24 @@
+---
+import Base from '../../layouts/Base.astro';
+import PageHero from '../../components/PageHero.astro';
+import CaseCard from '../../components/CaseCard.astro';
+import Cta from '../../components/Cta.astro';
+import { cases } from '../../data/cases';
+import { site } from '../../data/site';
+---
+<Base
+  title="Проекты. GEOGLYF"
+  description="Избранные проекты Георгия Шустова: ПосадиЛес, Эковики, Движение ЭКА, 6sense, КАРО, Рестораны Урюк. Брендинг, сайты, интерфейсы, key visual.">
+
+  <PageHero title="Проекты" lead="Избранные работы за 20 лет: экология и НКО, HoReCa, образование, развлечения, wellness. Полный архив доступен на старом сайте." small>
+    <a class="link-arrow" href={site.archive} target="_blank" rel="noopener">Полный архив работ</a>
+  </PageHero>
+
+  <section class="work">
+    <div class="work__grid">
+      {cases.map((c) => <CaseCard item={c} />)}
+    </div>
+  </section>
+
+  <Cta title="Есть похожая <em>задача?</em>" text="Расскажите о проекте. Отвечу в течение рабочего дня и предложу формат работы." shape="shape-star.png" />
+</Base>

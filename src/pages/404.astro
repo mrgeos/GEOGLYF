@@ -1,0 +1,19 @@
+---
+import Base from '../layouts/Base.astro';
+import { url } from '../lib/url';
+---
+<Base title="Страница не найдена. GEOGLYF" description="Такой страницы нет.">
+  <section class="page-hero page-hero--small">
+    <div class="page-hero__text">
+      <h1 class="h1">404. <em>Такой страницы нет</em></h1>
+      <p class="lead">Возможно, ссылка устарела. Начните с главной или посмотрите проекты.</p>
+      <div class="hero__actions">
+        <a class="btn btn--dark" href={url('/')}>На главную</a>
+        <a class="btn btn--ghost" href={url('/work/')}>Проекты</a>
+      </div>
+    </div>
+    <div class="page-hero__visual" aria-hidden="true">
+      <img src={url('/assets/shape-orbit.png')} alt="" width="800" height="800" class="float">
+    </div>
+  </section>
+</Base>

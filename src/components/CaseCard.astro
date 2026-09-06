@@ -1,0 +1,14 @@
+---
+import type { Case } from '../data/cases';
+import { url } from '../lib/url';
+interface Props { item: Case }
+const { item } = Astro.props;
+const dims = { square: [1200, 900], tall: [1200, 1500], wide: [1600, 900] }[item.coverRatio];
+---
+<a class:list={['case', { 'case--tall': item.coverRatio === 'tall', 'case--wide': item.coverRatio === 'wide' }]} href={url(`/work/${item.slug}/`)}>
+  <img src={item.cover} alt={`Обложка проекта ${item.name}`} width={dims[0]} height={dims[1]} loading="lazy">
+  <span class="case__cap">
+    <span class="case__name">{item.name}</span>
+    <span class="case__type">{item.type}</span>
+  </span>
+</a>

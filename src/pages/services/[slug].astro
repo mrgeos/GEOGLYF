@@ -1,0 +1,83 @@
+---
+import Base from '../../layouts/Base.astro';
+import PageHero from '../../components/PageHero.astro';
+import ContactSection from '../../components/ContactSection.astro';
+import { services } from '../../data/services';
+import { cases } from '../../data/cases';
+import CaseCard from '../../components/CaseCard.astro';
+import { url } from '../../lib/url';
+
+export function getStaticPaths() {
+  return services.map((s) => ({ params: { slug: s.slug }, props: { service: s } }));
+}
+const { service: s } = Astro.props;
+const others = services.filter((x) => x.slug !== s.slug);
+const related = cases.filter((c) => c.services.some((t) => s.name.toLowerCase().includes(t.toLowerCase().split(' ')[0]))).slice(0, 3);
+---
+<Base title={`${s.name}. Услуги GEOGLYF`} description={s.short}>
+  <PageHero title={s.name} lead={s.short} shape={s.shape} small>
+    <p class="meta-line"><span>{s.duration}</span><span>{s.price}</span></p>
+  </PageHero>
+
+  <section class="svc-intro">
+    <p class="big-text">{s.intro}</p>
+    <div class="svc-fit">
+      <h2 class="h4">Подходит, если вы</h2>
+      <ul class="check">{s.fit.map((f) => <li>{f}</li>)}</ul>
+    </div>
+  </section>
+
+  <section class="svc-stages">
+    <h2 class="h2">Этапы</h2>
+    <ol class="steps steps--wrap">
+      {s.stages.map((st, i) => (
+        <li class="step">
+          <span class="step__n">{i + 1}</span>
+          <h3>{st.title}</h3>
+          <p>{st.text}</p>
+        </li>
+      ))}
+    </ol>
+  </section>
+
+  {s.options && (
+    <section class="svc-options">
+      <h2 class="h2">Варианты <em>и стоимость</em></h2>
+      <div class="options">
+        {s.options.map((o, i) => (
+          <article class:list={['tile', { 'tile--accent': i === 0, 'tile--dark': i === 1 }]}>
+            <p class="tile__big tile__big--sm">{o.price}</p>
+            <h3 class="h4">{o.title}</h3>
+            <p>{o.text}</p>
+          </article>
+        ))}
+      </div>
+      <p class="note">Стоимость фиксируется в договоре. Тексты и фото предоставляет заказчик. Изменения ТЗ оформляются отдельным приложением только после согласования.</p>
+    </section>
+  )}
+
+  <section class="svc-result">
+    <div class="tile tile--dark svc-result__tile">
+      <h2 class="h3">Что получаете</h2>
+      <ul class="list">{s.deliverables.map((d) => <li>{d}</li>)}</ul>
+    </div>
+    <div class="svc-result__aside">
+      <h2 class="h4">Другие услуги</h2>
+      <ul class="plain-links">
+        {others.map((o) => <li><a href={url(`/services/${o.slug}/`)}>{o.name}</a></li>)}
+        <li><a href={url('/support/')}>Поддержка по Time &amp; Material</a></li>
+      </ul>
+    </div>
+  </section>
+
+  {related.length > 0 && (
+    <section class="work">
+      <h2 class="h2">Примеры</h2>
+      <div class="work__grid work__grid--three">
+        {related.map((c) => <CaseCard item={{ ...c, coverRatio: 'square' }} />)}
+      </div>
+    </section>
+  )}
+
+  <ContactSection />
+</Base>

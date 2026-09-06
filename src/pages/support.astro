@@ -1,0 +1,120 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+import ContactSection from '../components/ContactSection.astro';
+import { site } from '../data/site';
+import { url } from '../lib/url';
+
+const packs = [
+  { hours: '10', title: 'Лайт', text: 'Для бренда, которому нужны регулярные мелкие задачи: баннеры, посты, правки на сайте.', rows: ['2-3 задачи в неделю', 'Ответ в рабочие часы', 'Отчёт по пятницам'] },
+  { hours: '20', title: 'Стандарт', text: 'Полноценный дизайнер на половину ставки: коммуникации, презентации, новые страницы, печать.', rows: ['Планирование по понедельникам', 'Приоритеты и очередь задач', 'Арт-дирекшн подрядчиков'], accent: true },
+  { hours: '40+', title: 'Команда', text: 'Когда задач много и они разные: подключаю проверенных партнёров по 3D, моушну, копирайтингу, разработке.', rows: ['Ведение проектов целиком', 'Партнёры под моим арт-дирекшном', 'Стратегические сессии раз в месяц'] },
+];
+
+const faq = [
+  { q: 'Что если часов нужно меньше или больше, чем в пакете?', a: 'Пакеты нужны для планирования, а платите вы за фактические часы. Если задач меньше, счёт меньше. Если больше, я предупреждаю до того, как выйти за вилку max, и мы вместе решаем, что переносить.' },
+  { q: 'Как считаются часы?', a: 'Каждая задача оценивается до старта в часах. В пятничном отчёте видно, сколько ушло по факту и на что. Округление до 15 минут, время на созвоны входит в часы.' },
+  { q: 'Можно ли остановиться?', a: 'Да, после любого спринта. Работа закрывается актом за фактически сделанное. Рамочный договор при этом остаётся, и вернуться можно в любой понедельник.' },
+  { q: 'Чем это отличается от дизайнера в штате?', a: 'Не нужно искать, нанимать, обучать, платить налоги и отпуск. Вы получаете арт-директора с 20-летним опытом на столько часов, сколько нужно, и без простоя, когда задач нет.' },
+  { q: 'Как ставить задачи?', a: 'Так, как удобно вам: Telegram, почта, ваш таск-трекер. Я веду общий список задач с приоритетами и статусами, доступ к нему есть у вас всегда.' },
+  { q: 'Кому принадлежат исходники?', a: 'Вам. Все макеты живут в вашем Figma или передаются по итогам спринта. Используются только лицензионные шрифты, фото и графика.' },
+];
+
+const compare = [
+  { label: 'Старт', staff: '1-3 месяца на поиск', agency: '2-4 недели на договор', me: 'ближайший понедельник' },
+  { label: 'Оплата', staff: 'оклад + налоги + отпуск', agency: 'фикс за месяц', me: 'фактические часы' },
+  { label: 'Уровень', staff: 'зависит от рынка', agency: 'аккаунт + джуны', me: 'арт-директор лично' },
+  { label: 'Пауза', staff: 'сокращение', agency: 'по договору', me: 'после любого спринта' },
+];
+---
+<Base
+  title="Дизайн-поддержка по Time & Material. GEOGLYF"
+  description="Дизайнер в команде без найма в штат: недельные спринты, ставка 2 500 ₽/час, бюджет min-max, отчёт каждую пятницу. Баннеры, презентации, сайт, соцсети, печать.">
+
+  <PageHero
+    title="Поддержка. <em>Дизайнер в команде</em> без найма в штат"
+    lead="Формат Time & Material: недельные спринты, оплата за фактические часы, прозрачный отчёт. Всё, что нужно бренду каждую неделю, делает один человек с опытом арт-директора."
+    shape="shape-ring.png">
+    <div class="hero__actions">
+      <a class="btn btn--accent" href={url(site.cta.href)}>{site.cta.label}</a>
+      <a class="btn btn--ghost" href="#packs">Пакеты часов</a>
+    </div>
+  </PageHero>
+
+  <section class="week-section">
+    <h2 class="h2">Как устроена <em>неделя</em></h2>
+    <div class="week">
+      <div class="week__days">
+        <span class="week__day week__day--on">ПН</span>
+        <span class="week__day">ВТ</span>
+        <span class="week__day">СР</span>
+        <span class="week__day">ЧТ</span>
+        <span class="week__day">ПТ</span>
+        <span class="week__day week__day--off">СБ</span>
+        <span class="week__day week__day--off">ВС</span>
+        <span class="week__day week__day--on">ПН</span>
+      </div>
+      <div class="week__notes">
+        <p><strong>Понедельник.</strong> Созвон на 30 минут: разбираем результат прошлой недели, ставим и оцениваем задачи на новую.</p>
+        <p><strong>В течение недели.</strong> Задачи идут в работу в порядке приоритета. Пишете в Telegram, отвечаю в рабочие часы.</p>
+        <p><strong>Пятница.</strong> Отчёт: что сделано, сколько часов ушло, что переносится на следующий спринт.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="packs" id="packs">
+    <h2 class="h2">Пакеты <em>часов</em> в месяц</h2>
+    <p class="lead">Ставка одна для всех задач: {site.rate} в час. Пакет задаёт вилку min-max для планирования, платите по факту.</p>
+    <div class="packs__grid">
+      {packs.map((p) => (
+        <article class:list={['pack', { 'pack--accent': p.accent }]}>
+          <p class="pack__hours">{p.hours}<span> ч</span></p>
+          <h3 class="h4">{p.title}</h3>
+          <p class="pack__text">{p.text}</p>
+          <ul class="list">{p.rows.map((r) => <li>{r}</li>)}</ul>
+        </article>
+      ))}
+    </div>
+    <p class="note">Точную вилку определяем на первой встрече по вашему списку задач. Пакеты можно менять от месяца к месяцу.</p>
+  </section>
+
+  <section class="tasks">
+    <h2 class="h2">Что делаю в рамках поддержки</h2>
+    <div class="tasks__grid">
+      <div class="tile"><h3 class="h4">Коммуникации</h3><p>Баннеры, посты и сторис, рассылки, лендинги под акции, презентации для продаж.</p></div>
+      <div class="tile"><h3 class="h4">Сайт</h3><p>Правки, новые страницы и разделы, обновление контента, аудит юзабилити, работа с Tilda, Webflow, Bitrix.</p></div>
+      <div class="tile tile--dark"><h3 class="h4">Бренд</h3><p>Развитие айдентики, новые носители, гайдлайн, шаблоны для команды, контроль подрядчиков.</p></div>
+      <div class="tile"><h3 class="h4">Продукт</h3><p>Новые экраны и состояния, поддержка дизайн-системы, макеты для разработки.</p></div>
+      <div class="tile tile--accent"><h3 class="h4">Печать и мерч</h3><p>Полиграфия, упаковка, навигация, сувенирная продукция, подготовка к печати.</p></div>
+      <div class="tile"><h3 class="h4">Графика</h3><p>Иллюстрации, 3D, ИИ-генерации под арт-дирекшном, ретушь, инфографика.</p></div>
+    </div>
+  </section>
+
+  <section class="compare">
+    <h2 class="h2">Штат, агентство <em>или я</em></h2>
+    <div class="compare__table" role="table">
+      <div class="compare__row compare__row--head" role="row">
+        <span role="columnheader"></span><span role="columnheader">Дизайнер в штате</span><span role="columnheader">Агентство на ретейнере</span><span role="columnheader" class="compare__me">Поддержка GEOGLYF</span>
+      </div>
+      {compare.map((r) => (
+        <div class="compare__row" role="row">
+          <span role="rowheader">{r.label}</span><span role="cell" data-l="В штате: ">{r.staff}</span><span role="cell" data-l="Агентство: ">{r.agency}</span><span role="cell" class="compare__me" data-l="GEOGLYF: ">{r.me}</span>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <section class="faq">
+    <h2 class="h2">Вопросы</h2>
+    <div class="faq__list">
+      {faq.map((f) => (
+        <details class="svc">
+          <summary><span class="svc__name svc__name--sm">{f.q}</span></summary>
+          <div class="svc__body"><p>{f.a}</p></div>
+        </details>
+      ))}
+    </div>
+  </section>
+
+  <ContactSection title="Начнём с <em>понедельника?</em>" lead="Пришлите список задач на ближайший месяц, и я предложу вилку часов и формат работы." />
+</Base>

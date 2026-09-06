@@ -1,0 +1,14 @@
+---
+import { url } from '../lib/url';
+import { site } from '../data/site';
+interface Props { title: string; text: string; shape?: string }
+const { title, text, shape = 'shape-sparks.png' } = Astro.props;
+---
+<section class="cta-block">
+  <div class="cta-block__inner">
+    <img src={url('/assets/' + shape)} alt="" width="845" height="900" loading="lazy" class="cta-block__shape float" aria-hidden="true">
+    <h2 class="h2" set:html={title}></h2>
+    <p class="lead">{text}</p>
+    <a class="btn btn--accent" href={url(site.cta.href)}>{site.cta.label}</a>
+  </div>
+</section>

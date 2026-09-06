@@ -1,0 +1,27 @@
+---
+import { site } from '../data/site';
+import { url } from '../lib/url';
+const path = Astro.url.pathname;
+const isActive = (href: string) => path.startsWith(url(href));
+---
+<header class="nav" id="top">
+  <a class="logo" href={url('/')} aria-label="GEOGLYF, на главную">
+    <span class="logo__word">GEOGLYF</span>
+    <span class="logo__sub">digital design<br>&amp; branding</span>
+    <span class="logo__by">by Georgy Schustow</span>
+  </a>
+  <nav class="nav__links" aria-label="Разделы">
+    {site.nav.map((l) => (
+      <a href={url(l.href)} class:list={{ 'is-active': isActive(l.href) }} aria-current={isActive(l.href) ? 'page' : undefined}>{l.label}</a>
+    ))}
+  </nav>
+  <a class="btn btn--dark nav__cta" href={url(site.cta.href)}>{site.cta.label}</a>
+  <button class="burger" aria-label="Открыть меню" aria-expanded="false" aria-controls="mobile-menu">
+    <span></span><span></span>
+  </button>
+</header>
+
+<div class="mobile-menu" id="mobile-menu" hidden>
+  {site.nav.map((l) => <a href={url(l.href)}>{l.label}</a>)}
+  <a class="btn btn--dark" href={url(site.cta.href)}>{site.cta.label}</a>
+</div>

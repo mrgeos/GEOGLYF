@@ -1,0 +1,30 @@
+---
+import Base from '../layouts/Base.astro';
+import ContactForm from '../components/ContactForm.astro';
+import { site } from '../data/site';
+---
+<Base
+  title="Контакты. GEOGLYF"
+  description="Написать Георгию Шустову: Telegram @mr_geos, +7 916 814-04-06. Ответ в течение рабочего дня, формат и вилка стоимости после первого разговора.">
+
+  <section class="contact contact--page" id="contact">
+    <div class="contact__text">
+      <h1 class="h1">Обсудим <em>задачу?</em></h1>
+      <p class="lead">Напишите пару слов о проекте. Отвечу в течение рабочего дня, предложу формат и вилку стоимости.</p>
+      <ul class="contact__links">
+        <li><a href={`https://t.me/${site.telegram}`} target="_blank" rel="noopener">Telegram @{site.telegram}</a></li>
+        <li><a href={site.phoneHref}>{site.phone}</a></li>
+      </ul>
+      <div class="contact__how">
+        <h2 class="h4">Что будет дальше</h2>
+        <ol class="list list--num">
+          <li>Отвечаю и задаю уточняющие вопросы</li>
+          <li>Созвон на 30 минут, если задача большая</li>
+          <li>Предложение с форматом, сроками и вилкой</li>
+          <li>Договор и старт в ближайший понедельник</li>
+        </ol>
+      </div>
+    </div>
+    <ContactForm />
+  </section>
+</Base>

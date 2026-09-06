@@ -1,0 +1,107 @@
+---
+import Base from '../layouts/Base.astro';
+import ContactSection from '../components/ContactSection.astro';
+import { url } from '../lib/url';
+
+const clients = [
+  { group: 'Экология, НКО, социальный бизнес', names: ['Движение ЭКА', 'ПосадиЛес', 'Эковики', 'Экокласс'] },
+  { group: 'Проекты КСО и ESG', names: ['МТС', 'PepsiCo', 'Mars', 'Леруа Мерлен', 'Минприроды России', 'Комитет общественных связей Москвы', 'Мултон'] },
+  { group: 'Кафе и рестораны', names: ['Чайхона №1', 'Рестораны Урюк'] },
+  { group: 'Развлечения', names: ['Сеть кинотеатров КАРО', 'Формула Кино'] },
+  { group: 'Образование', names: ['Академия русского балета им. Вагановой'] },
+  { group: 'Строительство и город', names: ['ГК ФСК', 'Парк Минный Городок', 'Правительство Москвы'] },
+];
+
+const stack = [
+  { group: 'Дизайн', items: ['Figma', 'Арт-дирекшн', 'UX-исследования', 'Иллюстрация', '3D', 'Фото', 'ИИ-генерации'] },
+  { group: 'Платформы', items: ['Tilda', 'Webflow', 'WordPress', '1С-Битрикс'] },
+  { group: 'Разработка', items: ['HTML/CSS', 'JavaScript', 'Vue', 'PHP', 'Laravel', 'MySQL'] },
+];
+---
+<Base
+  title="Обо мне. Гео Шустов, арт-директор и founder GEOGLYF"
+  description="Георгий Шустов: 20 лет в дизайне и разработке сайтов, 650+ проектов, 10 лет арт-директор движения ЭКА, founding designer ПосадиЛес и Ecowiki.ru.">
+
+  <section class="about about--page">
+    <div class="about__photo">
+      <img src={url('/assets/portrait.jpg')} alt="Георгий Шустов" width="669" height="667" fetchpriority="high">
+      <img class="about__star float" src={url('/assets/shape-star-outline.png')} alt="" width="1130" height="1053" loading="lazy" aria-hidden="true">
+    </div>
+    <div class="about__text">
+      <h1 class="h1">Гео Шустов. Арт-директор <em>&amp; founder</em></h1>
+      <p class="lead">Соединяю дизайн и маркетинг: понимаю не только как должно выглядеть, но и как должно работать на узнаваемость, доверие и продажи.</p>
+      <dl class="facts">
+        <div><dt>20</dt><dd>лет в дизайне и разработке сайтов</dd></div>
+        <div><dt>650+</dt><dd>реализованных проектов</dd></div>
+        <div><dt>10</dt><dd>лет арт-директор экодвижения ЭКА</dd></div>
+        <div><dt>ECO, HoReCa, ED, Event</dt><dd>отрасли, в которых работаю чаще всего</dd></div>
+      </dl>
+    </div>
+  </section>
+
+  <section class="bio">
+    <div class="bio__text">
+      <p class="big-text">Начинал как веб-дизайнер и верстальщик, поэтому понимаю, как макет превращается в живой сайт, и не рисую того, что нельзя собрать.</p>
+      <p>Десять лет руководил дизайном в движении ЭКА: федеральные экологические кампании, программы для школ, проекты КСО и ESG для крупных компаний. Как founding designer запускал ПосадиЛес и Ecowiki.ru, вёл их от идеи до продукта, которым пользуются сотни тысяч людей.</p>
+      <p>Сейчас работаю под маркой GEOGLYF: сам и с проверенными партнёрами по разработке, копирайтингу и маркетингу. Беру проекты под ключ и веду бренды на постоянной поддержке.</p>
+    </div>
+    <div class="bio__principles">
+      <h2 class="h3">Почему мне доверяют</h2>
+      <ul class="why why--light">
+        <li><strong>Аналитический подход.</strong> Вижу, где у бизнеса точки роста и что побуждает клиента нажать «Купить».</li>
+        <li><strong>Думаю как аудитория.</strong> Погружаюсь в поведение целевой группы и адаптирую визуал под их мотивации.</li>
+        <li><strong>Процесс без хаоса.</strong> Прозрачно и поэтапно: без творческого сумбура, недосказанностей и просрочек.</li>
+        <li><strong>Всё по договору.</strong> Акты на каждый этап, гарантия 12 месяцев, только лицензионные материалы.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="clients-page">
+    <h2 class="h2">Клиенты <em>и партнёры</em></h2>
+    <div class="clients-page__grid">
+      {clients.map((g) => (
+        <div class="tile">
+          <h3 class="client-group">{g.group}</h3>
+          <ul class="client-names">{g.names.map((n) => <li>{n}</li>)}</ul>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <section class="stack">
+    <h2 class="h2">Инструменты</h2>
+    <div class="stack__grid">
+      {stack.map((g) => (
+        <div>
+          <h3 class="h4">{g.group}</h3>
+          <ul class="chips chips--static">{g.items.map((i) => <li>{i}</li>)}</ul>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <section class="fit">
+    <div class="fit__col">
+      <h2 class="h3">Сработаемся, если вы</h2>
+      <ul class="check">
+        <li>понимаете, что дизайн это инвестиция</li>
+        <li>хотите расти, а не просто «сделать сайт»</li>
+        <li>готовы обсуждать ценность, а не только цену</li>
+        <li>готовы услышать экспертное мнение</li>
+        <li>открыты к диалогу, а не к диктовке</li>
+        <li>не ждёте волшебную кнопку «сделать красиво»</li>
+      </ul>
+    </div>
+    <div class="fit__col fit__col--dark">
+      <h2 class="h3">Как я работаю</h2>
+      <ul class="why">
+        <li><strong>Сначала вопросы.</strong> Бриф и исследование до первого макета. Так дешевле для всех.</li>
+        <li><strong>Понедельник и пятница.</strong> План в начале недели, отчёт в конце. Никаких сюрпризов.</li>
+        <li><strong>Один контакт.</strong> Вы общаетесь со мной, а не с менеджером. Партнёров подключаю под своим арт-дирекшном.</li>
+        <li><strong>Исходники ваши.</strong> Все файлы в вашем Figma, лицензии оформлены на вас.</li>
+      </ul>
+    </div>
+  </section>
+
+  <ContactSection />
+</Base>
