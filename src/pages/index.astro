@@ -2,8 +2,9 @@
 import Base from '../layouts/Base.astro';
 import Clients from '../components/Clients.astro';
 import CaseCard from '../components/CaseCard.astro';
+import PriceTable from '../components/PriceTable.astro';
+import WhyMe from '../components/WhyMe.astro';
 import ContactSection from '../components/ContactSection.astro';
-import { services } from '../data/services';
 import { cases } from '../data/cases';
 import { site } from '../data/site';
 import { url } from '../lib/url';
@@ -32,6 +33,8 @@ import { url } from '../lib/url';
   </section>
 
   <Clients />
+
+  <WhyMe />
 
   <section class="support" id="support">
     <div class="support__head">
@@ -74,20 +77,10 @@ import { url } from '../lib/url';
     </div>
   </section>
 
-  <section class="services" id="services">
-    <h2 class="h2">Проектные услуги <em>под ключ</em></h2>
-    <p class="lead">Когда нужен результат с чётким объёмом, сроком и стоимостью. Фиксированная смета по договору, оплата по этапам, гарантия 12 месяцев.</p>
-    <div class="services__list">
-      {services.map((s) => (
-        <a class="svc-row" href={url(`/services/${s.slug}/`)}>
-          <span class="svc__name">{s.name}</span>
-          <span class="svc__meta">{s.duration}</span>
-        </a>
-      ))}
-    </div>
-    <div class="services__visual" aria-hidden="true">
-      <img src={url('/assets/shape-swirl.png')} alt="" width="1107" height="1113" loading="lazy" class="float">
-    </div>
+  <section class="services services--table" id="services">
+    <h2 class="h2">Услуги <em>и цены</em></h2>
+    <p class="lead">Проекты под ключ с фиксированной сметой по договору, оплатой по этапам и гарантией 12 месяцев. Или поддержка по часам, когда задачи идут потоком.</p>
+    <PriceTable compact />
   </section>
 
   <section class="work" id="work">

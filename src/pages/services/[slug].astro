@@ -58,8 +58,10 @@ const related = cases.filter((c) => c.services.some((t) => s.name.toLowerCase().
 
   <section class="svc-result">
     <div class="tile tile--dark svc-result__tile">
-      <h2 class="h3">Что получаете</h2>
+      <h2 class="h3">{s.youGet}</h2>
+      <p class="slash-label">// что входит</p>
       <ul class="list">{s.deliverables.map((d) => <li>{d}</li>)}</ul>
+      {s.slug !== 'audit' && <p class="tile__note tile__note--light">Не уверены, что нужно именно это? Начните с консультации. При дальнейшей работе её стоимость вычитается из проекта.</p>}
     </div>
     <div class="svc-result__aside">
       <h2 class="h4">Другие услуги</h2>

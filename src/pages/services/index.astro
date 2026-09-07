@@ -2,6 +2,7 @@
 import Base from '../../layouts/Base.astro';
 import PageHero from '../../components/PageHero.astro';
 import Cta from '../../components/Cta.astro';
+import PriceTable from '../../components/PriceTable.astro';
 import { services } from '../../data/services';
 import { url } from '../../lib/url';
 ---
@@ -10,9 +11,13 @@ import { url } from '../../lib/url';
   description="Проекты под ключ с фиксированной сметой и гарантией 12 месяцев: брендинг и айдентика, сайты и лендинги, UI/UX дизайн, key visual, презентации и КП.">
 
   <PageHero
-    title="Проектные услуги <em>под ключ</em>"
-    lead="Когда нужен результат с чётким объёмом, сроком и стоимостью. Фиксированная смета по договору, оплата по этапам, гарантия 12 месяцев."
+    title="Услуги <em>и цены</em>"
+    lead="Помогаю решать задачи бизнеса: от часового аудита до бренда и сайта под ключ. Сроки и цены «от» ниже, точная смета после брифа."
     shape="shape-swirl.png" />
+
+  <section class="price-section">
+    <PriceTable />
+  </section>
 
   <section class="svc-grid">
     {services.map((s, i) => (
@@ -22,6 +27,7 @@ import { url } from '../../lib/url';
           <h2 class="h3">{s.name}</h2>
           <p>{s.short}</p>
           <p class="svc-card__meta"><span>{s.duration}</span><span>{s.price}</span></p>
+          <span class="link-arrow">Что входит</span>
         </div>
       </a>
     ))}

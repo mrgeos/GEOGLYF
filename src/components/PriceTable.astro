@@ -1,0 +1,26 @@
+---
+import { services } from '../data/services';
+import { url } from '../lib/url';
+interface Props { compact?: boolean }
+const { compact = false } = Astro.props;
+---
+<div class="price">
+  <div class="price__row price__row--head" aria-hidden="true">
+    <span>Услуга</span>{!compact && <span></span>}<span>Срок</span><span>Стоимость</span>
+  </div>
+  {services.map((s) => (
+    <a class="price__row" href={url(`/services/${s.slug}/`)}>
+      <span class="price__name">{s.name}</span>
+      {!compact && <span class="price__short">{s.short}</span>}
+      <span class="price__dur">{s.duration}</span>
+      <span class="price__cost">{s.price}</span>
+    </a>
+  ))}
+  <a class="price__row price__row--support" href={url('/support/')}>
+    <span class="price__name">Поддержка по Time &amp; Material</span>
+    <span class="price__short">{compact ? '' : 'Дизайнер в команде на недельных спринтах. Платите за фактические часы, вилка бюджета фиксируется заранее.'}</span>
+    <span class="price__dur">от 10 ч в месяц</span>
+    <span class="price__cost">2 500 ₽/час</span>
+  </a>
+</div>
+<p class="note">Если после консультации решаете работать со мной, её стоимость вычитается из проекта. Цены «от» уточняются после брифа и фиксируются в договоре.</p>
