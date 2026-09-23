@@ -25,6 +25,9 @@ const needs = ['Поддержка', 'Брендинг', 'Сайт', 'UI/UX', 'K
     <textarea id="f-msg" name="message" rows="4" required></textarea>
     <span class="field__err">Хотя бы одно предложение: что, для кого и когда</span>
   </div>
-  <button class="btn btn--accent" type="submit">Отправить в Telegram</button>
-  <p class="form__hint">Кнопка откроет Telegram с готовым сообщением. Ничего не отправляется без вашего подтверждения.</p>
+  <div class="form__actions">
+    <button class="btn btn--accent" type="submit">Продолжить в Telegram</button>
+    <button class="btn btn--ghost" type="button" data-copy>Скопировать текст</button>
+  </div>
+  <p class="form__hint" data-hint>Откроется чат с @mr_geos и готовым сообщением, отправляете его вы. Если Telegram не открылся, скопируйте текст и отправьте любым удобным способом.</p>
 </form>

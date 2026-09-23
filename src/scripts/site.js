@@ -90,11 +90,11 @@
     sections.forEach(function (s) { navIo.observe(s); });
   }
 
-  /* Contact form: validate, compose Telegram message, open t.me */
+  /* Contact form: validate, compose message, open Telegram or copy */
   var form = document.querySelector("[data-tg-form]");
   if (form) {
-    form.addEventListener("submit", function (e) {
-      e.preventDefault();
+    var hint = form.querySelector("[data-hint]");
+    var compose = function () {
       var ok = true;
       form.querySelectorAll(".field").forEach(function (f) {
         var input = f.querySelector("[required]");
@@ -103,27 +103,32 @@
         f.classList.toggle("is-invalid", bad);
         if (bad && ok) { input.focus(); ok = false; }
       });
-      if (!ok) return;
-
-      var name = form.name.value.trim();
+      if (!ok) return null;
       var company = form.company.value.trim();
-      var needs = Array.prototype.map.call(
-        form.querySelectorAll('input[name="need"]:checked'),
-        function (c) { return c.value; }
-      ).join(", ");
-      var msg = form.message.value.trim();
-
-      var text = "Привет, Гео! Меня зовут " + name + "." +
+      var needs = Array.prototype.map.call(form.querySelectorAll('input[name="need"]:checked'), function (c) { return c.value; }).join(", ");
+      return "Привет, Гео! Меня зовут " + form.name.value.trim() + "." +
         (company ? " Компания: " + company + "." : "") +
         (needs ? " Нужно: " + needs + "." : "") +
-        "\n\n" + msg;
-
-      window.open("https://t.me/mr_geos?text=" + encodeURIComponent(text), "_blank", "noopener");
+        "\n\n" + form.message.value.trim();
+    };
+    form.addEventListener("submit", function (e) {
+      e.preventDefault();
+      var text = compose();
+      if (text) window.open("https://t.me/mr_geos?text=" + encodeURIComponent(text), "_blank", "noopener");
+    });
+    var copyBtn = form.querySelector("[data-copy]");
+    if (copyBtn) copyBtn.addEventListener("click", function () {
+      var text = compose();
+      if (!text) return;
+      var done = function () { if (hint) hint.textContent = "Текст скопирован. Отправьте его в Telegram @mr_geos или на +7 916 814-04-06."; };
+      if (navigator.clipboard && window.isSecureContext) {
+        navigator.clipboard.writeText(text).then(done, function () { window.prompt("Скопируйте текст:", text); });
+      } else {
+        window.prompt("Скопируйте текст:", text);
+      }
     });
     form.querySelectorAll("[required]").forEach(function (input) {
-      input.addEventListener("input", function () {
-        input.closest(".field").classList.remove("is-invalid");
-      });
+      input.addEventListener("input", function () { input.closest(".field").classList.remove("is-invalid"); });
     });
   }
 })();
