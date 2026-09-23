@@ -32,7 +32,7 @@
 
   /* Scroll reveal via IntersectionObserver */
   var targets = document.querySelectorAll(
-    ".h2, .lead, .tile, .svc, .case, .step, .facts, .fit__col, .form, .week, .about__photo, .contact__text"
+    ".h2, .lead, .tile, .svc, .case, .step, .facts, .fit__col, .week, .about__photo, .contact__text, .ccard, .claim, .pricecol, .stat, .founder__quote, .mind__grid > div, .timeline, .promo__card"
   );
   if (!reduce && "IntersectionObserver" in window) {
     targets.forEach(function (el) { el.classList.add("reveal"); });
@@ -47,10 +47,36 @@
     targets.forEach(function (el) { io.observe(el); });
   }
 
+  /* Objections slider: dots switch slides, auto-advance unless reduced motion */
+  document.querySelectorAll("[data-slider]").forEach(function (root) {
+    var slides = root.querySelectorAll("[data-slide]");
+    var dots = root.querySelectorAll("[data-dot]");
+    if (!slides.length) return;
+    var current = 0, timer = null;
+    var show = function (i) {
+      current = (i + slides.length) % slides.length;
+      slides.forEach(function (s, k) { s.hidden = k !== current; });
+      dots.forEach(function (d, k) { d.setAttribute("aria-selected", String(k === current)); });
+    };
+    var start = function () {
+      if (reduce) return;
+      stop();
+      timer = window.setInterval(function () { show(current + 1); }, 6000);
+    };
+    var stop = function () { if (timer) { window.clearInterval(timer); timer = null; } };
+    dots.forEach(function (d, k) { d.addEventListener("click", function () { show(k); start(); }); });
+    root.addEventListener("mouseenter", stop);
+    root.addEventListener("mouseleave", start);
+    root.addEventListener("focusin", stop);
+    root.addEventListener("focusout", start);
+    start();
+  });
+
   /* Active nav link */
   var links = document.querySelectorAll(".nav__links a");
   var sections = Array.prototype.map.call(links, function (a) {
-    return document.querySelector(a.getAttribute("href"));
+    var href = a.getAttribute("href") || "";
+    return href.charAt(0) === "#" ? document.getElementById(href.slice(1)) : null;
   }).filter(Boolean);
   if (sections.length && "IntersectionObserver" in window) {
     var navIo = new IntersectionObserver(function (entries) {

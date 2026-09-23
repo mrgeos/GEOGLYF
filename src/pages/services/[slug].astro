@@ -76,7 +76,7 @@ const related = cases.filter((c) => c.services.some((t) => s.name.toLowerCase().
     <section class="work">
       <h2 class="h2">Примеры</h2>
       <div class="work__grid work__grid--three">
-        {related.map((c) => <CaseCard item={{ ...c, coverRatio: 'square' }} />)}
+        {related.map((c) => <CaseCard item={c} />)}
       </div>
     </section>
   )}

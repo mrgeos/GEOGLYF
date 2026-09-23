@@ -55,7 +55,7 @@ const { item: c, next } = Astro.props;
   <section class="case-next">
     <h2 class="h4">Следующий проект</h2>
     <div class="work__grid work__grid--one">
-      <CaseCard item={{ ...next, coverRatio: 'wide' }} />
+      <CaseCard item={next} wide />
     </div>
   </section>
 

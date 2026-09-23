@@ -1,0 +1,34 @@
+---
+interface Bar { label: string; start: number; span: number }
+interface Props { title: string; text?: string; weeks: number; bars: Bar[] }
+const { title, text, weeks, bars } = Astro.props;
+const n = bars.length;
+// Half-week columns to a human range: start 1, span 3 -> "1-2 неделя".
+const when = (b: Bar) => {
+  const from = Math.ceil(b.start / 2);
+  const to = Math.ceil((b.start + b.span - 1) / 2);
+  return from === to ? `${from} неделя` : `${from}-${to} неделя`;
+};
+// Brand gradient: lime to pink, one step per bar.
+const tone = (i: number) => {
+  const pct = Math.round((1 - i / Math.max(n - 1, 1)) * 100);
+  return `color-mix(in oklch, var(--accent) ${pct}%, var(--pink))`;
+};
+---
+<div class="timeline">
+  <div class="timeline__head">
+    <h2 class="h3" set:html={title}></h2>
+  </div>
+  <div class="timeline__scroll">
+    <div class="timeline__grid" style={`--cols:${weeks * 2}`} role="list" aria-label="План работ по неделям">
+      {Array.from({ length: weeks }, (_, w) => (
+        <span class="timeline__week" style={`grid-column:${w * 2 + 1} / span 2`} aria-hidden="true">{w + 1} неделя</span>
+      ))}
+      {bars.map((b, i) => (
+        <span class="timeline__bar" role="listitem"
+          style={`grid-column:${b.start} / span ${b.span}; grid-row:${i + 2}; --tone:${tone(i)}`}><span>{b.label}</span><span class="timeline__when">{when(b)}</span></span>
+      ))}
+    </div>
+  </div>
+  {text && <p class="timeline__text">{text}</p>}
+</div>

@@ -1,21 +1,31 @@
 ---
 import { site } from '../data/site';
+import { services } from '../data/services';
 import { url } from '../lib/url';
 const year = new Date().getFullYear();
 ---
 <footer class="footer">
-  <div class="footer__brand">
-    <span class="logo__word">GEOGLYF</span>
-    <p>Digital design &amp; branding by Georgy Schustow</p>
+  <div class="footer__inner">
+    <div class="footer__col">
+      <a class="footer__head" href={url('/services/')}>Услуги</a>
+      {services.map((s) => <a href={url(`/services/${s.slug}/`)}>{s.name}</a>)}
+      <a href={url('/support/')}>Поддержка по часам</a>
+    </div>
+    <div class="footer__col">
+      <a class="footer__head" href={url('/work/')}>Проекты</a>
+      <a href={url('/about/')}>Обо мне</a>
+      <a href={url('/contacts/')}>Контакты</a>
+      <a href={site.archive} target="_blank" rel="noopener">Архив работ</a>
+    </div>
+    <div class="footer__col footer__col--contacts">
+      <span class="footer__head">Контакты</span>
+      <a class="footer__phone" href={site.phoneHref}>{site.phone}</a>
+      <a href={`https://t.me/${site.telegram}`} target="_blank" rel="noopener">Telegram @{site.telegram}</a>
+    </div>
+    <div class="footer__brand">
+      <span class="logo__word">GEOGLYF</span>
+      <p>Digital design &amp; branding by Georgy Schustow</p>
+    </div>
+    <p class="footer__copy">© 2006-{year} {site.person}. Все проекты выполнены с использованием лицензионных материалов.</p>
   </div>
-  <div class="footer__col">
-    <a href={`https://t.me/${site.telegram}`} target="_blank" rel="noopener">Telegram</a>
-    <a href={site.phoneHref}>{site.phone}</a>
-    <a href={site.archive} target="_blank" rel="noopener">Архив работ</a>
-  </div>
-  <div class="footer__col">
-    {site.nav.map((l) => <a href={url(l.href)}>{l.label}</a>)}
-    <a href={url('/contacts/')}>Контакты</a>
-  </div>
-  <p class="footer__copy">© 2006-{year} {site.person}. Все проекты выполнены с использованием лицензионных материалов.</p>
 </footer>

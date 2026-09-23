@@ -15,7 +15,11 @@ const isActive = (href: string) => path.startsWith(url(href));
       <a href={url(l.href)} class:list={{ 'is-active': isActive(l.href) }} aria-current={isActive(l.href) ? 'page' : undefined}>{l.label}</a>
     ))}
   </nav>
-  <a class="btn btn--dark nav__cta" href={url(site.cta.href)}>{site.cta.label}</a>
+  <div class="nav__phone">
+    <a href={site.phoneHref}>{site.phone}</a>
+    <a href={`https://t.me/${site.telegram}`} target="_blank" rel="noopener">Telegram @{site.telegram}</a>
+  </div>
+  <a class="btn btn--accent nav__cta" href={url(site.cta.href)}>{site.cta.label}</a>
   <button class="burger" aria-label="Открыть меню" aria-expanded="false" aria-controls="mobile-menu">
     <span></span><span></span>
   </button>
